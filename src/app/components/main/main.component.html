@@ -1,0 +1,682 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color: white">Controle de Alunos</a>
+  <button (click)="OnDownloadExcel()" class="btn btn-primary">
+    Download Alunos
+  </button>
+
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarColor02"
+    aria-controls="navbarColor02"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <button class="btn btn-primary" (click)="onOpenModal(null!, 'add')">
+          Adicionar Aluno <span class="sr-only"></span>
+        </button>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input
+        type="search"
+        (ngModelChange)="searchStudents(key.value)"
+        #key="ngModel"
+        ngModel
+        name="key"
+        id="searchName"
+        class="form-control mr-sm-2"
+        placeholder="Search employees..."
+        required
+      />
+    </form>
+  </div>
+</nav>
+<div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let student of students" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="col-6 card-title align-self-center mb-0">
+            <h5>{{ student?.name }}</h5>
+            <h4 class="m-0">{{ student?.shift }}</h4>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Responsável:{{ student?.responsible }}
+          </li>
+          <li class="list-group-item">
+            Telefone :
+            {{ student?.phone }}
+          </li>
+          <li class="list-group-item">
+            Data da Matricula :
+            {{ student?.data }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Duração do contrato :
+            {{ student?.contractTime }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Valor :
+            {{ student?.price }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do Bolsão :
+            {{ student?.notaBolsao }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 1° simulado :
+            {{ student?.notaSimulado1 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 2° simulado :
+            {{ student?.notaSimulado2 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 3° simulado :
+            {{ student?.notaSimulado3 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 4° simulado :
+            {{ student?.notaSimulado4 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 5° simulado :
+            {{ student?.notaSimulado5 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 6° simulado :
+            {{ student?.notaSimulado6 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 7° simulado :
+            {{ student?.notaSimulado7 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 8° simulado :
+            {{ student?.notaSimulado8 }}
+          </li>
+          <li class="list-group-item">
+            <i class="fa-light fa-id-badge"></i>Nota do 9° simulado :
+            {{ student?.notaSimulado9 }}
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="float-right btn-group btn-group-sm">
+            <a
+              (click)="onOpenModal(student, 'edit')"
+              class="btn btn-primary tooltips"
+              data-placement="top"
+              data-original-title="Edit"
+              ><i class="fa fa-pencil"></i>
+            </a>
+            <a
+              (click)="onOpenModal(student, 'delete')"
+              class="btn btn-secondary tooltips"
+              data-placement="top"
+              data-original-title="Delete"
+              ><i class="fa fa-times"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div
+    class="modal fade"
+    id="addStudentModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addStudentModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddStudent(addForm)">
+            <div class="form-group">
+              <label for="name">Nome do Aluno(a)</label>
+              <input
+                type="text"
+                ngModel
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Digite o nome do Aluno"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="shift">Turno</label>
+              <input
+                type="text"
+                ngModel
+                name="shift"
+                class="form-control"
+                id="shift"
+                placeholder="Exemplo: Tarde"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Responsável</label>
+              <input
+                type="text"
+                ngModel
+                name="responsible"
+                class="form-control"
+                id="responsible"
+                placeholder="Nome do responsável financeiro"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input
+                type="number"
+                ngModel
+                name="phone"
+                class="form-control"
+                id="phone"
+                placeholder="Exemplo: 21912345678"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="data">Data da Matricula</label>
+              <input
+                type="date"
+                ngModel
+                name="data"
+                class="form-control"
+                id="data"
+                placeholder="data"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contractTime">Duração do Contrato</label>
+              <input
+                type="number"
+                ngModel
+                name="contractTime"
+                class="form-control"
+                id="contractTime"
+                placeholder="Exemplo: 11"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="price">Valor</label>
+              <input
+                type="number"
+                ngModel
+                name="price"
+                class="form-control"
+                id="price"
+                placeholder="Digite o valor, somente números"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaBolsao">Nota do Bolsão</label>
+              <input
+                type="number"
+                ngModel
+                name="notaBolsao"
+                class="form-control"
+                id="notaBolsao"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado1">Nota 1° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado1"
+                class="form-control"
+                id="notaSimulado1"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado2">Nota 2° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado2"
+                class="form-control"
+                id="notaSimulado2"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado3">Nota 3° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado3"
+                class="form-control"
+                id="notaSimulado3"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado4">Nota 4° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado4"
+                class="form-control"
+                id="notaSimulado4"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado5">Nota 5° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado5"
+                class="form-control"
+                id="notaSimulado5"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado6">Nota 6° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado6"
+                class="form-control"
+                id="notaSimulado6"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado7">Nota 7° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado7"
+                class="form-control"
+                id="notaSimulado7"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado8">Nota 8° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado8"
+                class="form-control"
+                id="notaSimulado8"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado9">Nota 9° Simulado</label>
+              <input
+                type="number"
+                ngModel
+                name="notaSimulado9"
+                class="form-control"
+                id="notaSimulado9"
+                placeholder="Digite a nota, somente números"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="add-student-form"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="addForm.invalid"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Salvar Aluno
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div
+    class="modal fade"
+    id="updateStudentModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="studentEditModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateStudentModalLabel">
+            Edit Student {{ editStudent?.name }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input
+                type="text"
+                ngModel="{{ editStudent?.name }}"
+                name="name"
+                class="form-control"
+                id="name"
+                aria-describedby="emailHelp"
+                placeholder="Altere o nome do Aluno"
+              />
+            </div>
+            <input
+              type="hidden"
+              ngModel="{{ editStudent?.id }}"
+              name="id"
+              class="form-control"
+              id="id"
+              placeholder="ID"
+            />
+            <input
+              type="hidden"
+              ngModel="{{ editStudent?.studentCode }}"
+              name="userCode"
+              class="form-control"
+              id="userCode"
+              placeholder="Email"
+            />
+            <div class="form-group">
+              <label for="shift">Turno</label>
+              <input
+                type="text"
+                ngModel="{{ editStudent?.shift }}"
+                name="shift"
+                class="form-control"
+                id="shift"
+                placeholder="Altere o turno. Exemplo: manhã"
+              />
+            </div>
+            <div class="form-group">
+              <label for="responsible">Responsável</label>
+              <input
+                type="text"
+                ngModel="{{ editStudent?.responsible }}"
+                name="responsible"
+                class="form-control"
+                id="responsible"
+                placeholder="Altere o nome do responsável financeiro"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input
+                type="text"
+                ngModel="{{ editStudent?.phone }}"
+                name="phone"
+                class="form-control"
+                id="phone"
+                name="phone"
+                placeholder="Altere o telefone. Exemplo: 219123454321"
+              />
+            </div>
+            <div class="form-group">
+              <label for="data">Data da Matricula</label>
+              <input
+                type="date"
+                ngModel="{{ editStudent?.data }}"
+                name="data"
+                class="form-control"
+                id="data"
+                placeholder="data"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contractTime">Duração do Contrato</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.contractTime }}"
+                name="contractTime"
+                class="form-control"
+                id="contractTime"
+                placeholder="Altere a duração do contrato. Exemplo: 9"
+              />
+            </div>
+            <div class="form-group">
+              <label for="price">Valor</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.price }}"
+                name="price"
+                class="form-control"
+                id="price"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaBolsao">Nota do Bolsão</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaBolsao }}"
+                name="notaBolsao"
+                class="form-control"
+                id="notaBolsao"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado1">Nota do 1° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado1 }}"
+                name="notaSimulado1"
+                class="form-control"
+                id="notaSimulado1"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado2">Nota do 2° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado2 }}"
+                name="notaSimulado2"
+                class="form-control"
+                id="notaSimulado2"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado3">Nota do 3° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado3 }}"
+                name="notaSimulado3"
+                class="form-control"
+                id="notaSimulado3"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado4">Nota do 4° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado4 }}"
+                name="notaSimulado4"
+                class="form-control"
+                id="notaSimulado4"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado5">Nota do 5° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado5 }}"
+                name="notaSimulado5"
+                class="form-control"
+                id="notaSimulado5"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado6">Nota do 6° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado6 }}"
+                name="notaSimulado6"
+                class="form-control"
+                id="notaSimulado6"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado7">Nota do 7° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado7 }}"
+                name="notaSimulado7"
+                class="form-control"
+                id="notaSimulado7"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado8">Nota do 8° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado8 }}"
+                name="notaSimulado8"
+                class="form-control"
+                id="notaSimulado8"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="form-group">
+              <label for="notaSimulado9">Nota do 9° simulado</label>
+              <input
+                type="number"
+                ngModel="{{ editStudent?.notaSimulado9 }}"
+                name="notaSimulado9"
+                class="form-control"
+                id="notaSimulado9"
+                placeholder="Altere o valor, somente números"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id=""
+                data-dismiss="modal"
+                class="btn btn-secondary"
+              >
+                Fechar
+              </button>
+              <button
+                (click)="onUpdateStudent(editForm.value)"
+                data-dismiss="modal"
+                class="btn btn-primary"
+              >
+                Salvar mudanças
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deleteStudentModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deleteModelLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Student</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete student {{ deleteStudent?.name }}?
+          </p>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              No
+            </button>
+            <button
+              (click)="onDeleteStudent(deleteStudent!.id)"
+              class="btn btn-danger"
+              data-dismiss="modal"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification for no employees -->
+<div *ngIf="students?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO STUDENTS!</h4>
+    <p>No Students were found.</p>
+  </div>
+</div>

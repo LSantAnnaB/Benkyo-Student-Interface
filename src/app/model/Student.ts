@@ -1,0 +1,21 @@
+export class Student {
+  id: number = 0;
+  name: string = '';
+  shift: string = '';
+  phone: string = '';
+  data: string = '';
+  contractTime: string = '';
+  price: number = 0;
+  responsible: string = '';
+  studentCode: string = '';
+  notaBolsao: number = 0;
+  notaSimulado1: number = 0;
+  notaSimulado2: number = 0;
+  notaSimulado3: number = 0;
+  notaSimulado4: number = 0;
+  notaSimulado5: number = 0;
+  notaSimulado6: number = 0;
+  notaSimulado7: number = 0;
+  notaSimulado8: number = 0;
+  notaSimulado9: number = 0;
+}
