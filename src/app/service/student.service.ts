@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../model/Student';
@@ -32,6 +32,15 @@ export class StudentService {
   }
   public downloadExcelFile(): Observable<Blob> {
     return this.http.get(`${this.apiServeUrl}/student/excel`, {
+      responseType: 'blob',
+    });
+  }
+
+  public uploadExcelFile(file: File): Observable<Blob> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.apiServeUrl}/student/upload`, formData, {
       responseType: 'blob',
     });
   }

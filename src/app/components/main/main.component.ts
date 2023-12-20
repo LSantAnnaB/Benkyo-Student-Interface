@@ -131,6 +131,27 @@ export class MainComponent implements OnInit {
       }
     );
   }
+  public file: File | null = null;
+
+  public onFileChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.file = inputElement.files[0];
+    }
+  }
+
+  public OnUploadExcel(): void {
+    if (this.file) {
+      this.studentService.uploadExcelFile(this.file).subscribe(
+        (blob: Blob) => {
+          this.getStudents();
+        },
+        (error) => {
+          console.error('Erro ao fazer upload do arquivo Excel:', error);
+        }
+      );
+    }
+  }
 
   ngOnInit() {
     this.getStudents();

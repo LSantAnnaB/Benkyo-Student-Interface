@@ -1,9 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" style="color: white">Controle de Alunos</a>
+  <a class="navbar-brand" class="name">Alunos Benkyô</a>
   <button (click)="OnDownloadExcel()" class="btn btn-primary">
     Download Alunos
   </button>
-
   <button
     class="navbar-toggler"
     type="button"
@@ -23,7 +22,7 @@
         </button>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0 buscar">
       <input
         type="search"
         (ngModelChange)="searchStudents(key.value)"
@@ -32,10 +31,20 @@
         name="key"
         id="searchName"
         class="form-control mr-sm-2"
-        placeholder="Search employees..."
+        placeholder="Buscar aluno por: Nome, Responsável, Turno, tempo de contrato"
         required
       />
     </form>
+  </div>
+  <div>
+    <label for="fileInput" class="up">Escolha um arquivo Excel</label>
+    <input
+      id="fileInput"
+      type="file"
+      (change)="onFileChange($event)"
+      class="d-none"
+    />
+    <button (click)="OnUploadExcel()" class="btn btn-primary">Importar</button>
   </div>
 </nav>
 <div class="container" id="main-container">
@@ -676,7 +685,7 @@
 <!-- Notification for no employees -->
 <div *ngIf="students?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
-    <h4 class="alert-heading">NO STUDENTS!</h4>
-    <p>No Students were found.</p>
+    <h4 class="alert-heading">Sem Aluno</h4>
+    <p>Nenhum aluno no sistema do Benkyô.</p>
   </div>
 </div>

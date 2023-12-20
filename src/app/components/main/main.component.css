@@ -44,3 +44,22 @@ a {
 button {
   margin-right: 1em;
 }
+
+.up {
+  margin-right: 0.5em;
+  color: #f5f5f5;
+  border: #707070
+}
+
+.name {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  font-size: 2em;
+  font-weight: bold;
+  color: rgb(0, 123, 255);
+  text-decoration: none;
+}
+
+.buscar {
+  width: 30.5em;
+}
