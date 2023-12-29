@@ -37,7 +37,9 @@
     </form>
   </div>
   <div>
-    <label for="fileInput" class="up">Escolha um arquivo Excel</label>
+    <label for="fileInput" [ngClass]="'label-hover'" class="up"
+      >Escolha um arquivo Excel</label
+    >
     <input
       id="fileInput"
       type="file"
@@ -45,12 +47,13 @@
       class="d-none"
     />
     <button (click)="OnUploadExcel()" class="btn btn-primary">Importar</button>
+    <button (click)="logout()" class="btn btn-danger">Logout</button>
   </div>
 </nav>
-<div class="container" id="main-container">
+<div class="container" id="main-container" mt-20>
   <div class="row">
     <div *ngFor="let student of students" class="col-md-6 col-xl-3">
-      <div class="card m-b-30">
+      <div class="card m-b-30 bg-info text-black">
         <div class="card-body row">
           <div class="col-6 card-title align-self-center mb-0">
             <h5>{{ student?.name }}</h5>
@@ -119,20 +122,20 @@
           </li>
         </ul>
         <div class="card-body">
-          <div class="float-right btn-group btn-group-sm">
+          <div class="float-right btn-group btn-group-sm bg-white">
             <a
               (click)="onOpenModal(student, 'edit')"
               class="btn btn-primary tooltips"
               data-placement="top"
               data-original-title="Edit"
-              ><i class="fa fa-pencil"></i>
+              ><i class="fa fa-pencil text-bg-warning"></i>
             </a>
             <a
               (click)="onOpenModal(student, 'delete')"
               class="btn btn-secondary tooltips"
               data-placement="top"
               data-original-title="Delete"
-              ><i class="fa fa-times"></i
+              ><i class="fa fa-times text-danger"></i
             ></a>
           </div>
         </div>
@@ -658,7 +661,8 @@
         </div>
         <div class="modal-body">
           <p>
-            Are you sure you want to delete student {{ deleteStudent?.name }}?
+            Você deseja excluir permanentemente
+            {{ deleteStudent?.name }}?
           </p>
           <div class="modal-footer">
             <button

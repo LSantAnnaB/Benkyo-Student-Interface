@@ -1,0 +1,213 @@
+<body class="bg-dark corpo">
+  <div class="container">
+    <div class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand name">Autenticação Secretaria Benkyô</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarColor02"
+        aria-controls="navbarColor02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <div class="button">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <button
+                class="btn btn-primary"
+                (click)="onOpenModal(null!, 'login')"
+              >
+                login <span class="sr-only"></span>
+              </button>
+            </li>
+            <li class="nav-item active">
+              <button
+                class="btn btn-primary"
+                (click)="onOpenModal(null!, 'add')"
+              >
+                Registrar <span class="sr-only"></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="main-container">
+      <!-- Add Employee Modal -->
+      <div
+        class="modal fade"
+        id="addUserModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="addUserModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">
+                Adicionar Usuário
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
+                <div class="form-group">
+                  <label for="firstName">Nome</label>
+                  <input
+                    type="text"
+                    ngModel
+                    name="firstName"
+                    class="form-control"
+                    id="firstName"
+                    placeholder="Digite o nome"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Sobrenome</label>
+                  <input
+                    type="text"
+                    ngModel
+                    name="lastName"
+                    class="form-control"
+                    id="lastName"
+                    placeholder="Digite o sobrenome"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="login">Login</label>
+                  <input
+                    type="text"
+                    ngModel
+                    name="login"
+                    class="form-control"
+                    id="login"
+                    placeholder="Digite o username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Senha</label>
+                  <input
+                    type="password"
+                    ngModel
+                    name="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Digite a senha"
+                    required
+                  />
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    id="add-user-form"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    [disabled]="addForm.invalid"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    Registrar Usuário
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="main-container">
+      <!-- Add Employee Modal -->
+      <div
+        class="modal fade"
+        id="loginUserModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="loginUserModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginUserModalLabel">
+                Login do Usuário
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #loginForm="ngForm" (ngSubmit)="onLoginUser(loginForm)">
+                <div class="form-group">
+                  <label for="login">Login</label>
+                  <input
+                    type="text"
+                    ngModel
+                    name="login"
+                    class="form-control"
+                    id="login"
+                    placeholder="Digite o username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Senha</label>
+                  <input
+                    type="password"
+                    ngModel
+                    name="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Digite a senha"
+                    required
+                  />
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    id="login-user-form"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    [disabled]="loginForm.invalid"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    Entrar Usuário
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

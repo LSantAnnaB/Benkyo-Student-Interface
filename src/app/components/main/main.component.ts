@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { catchError } from 'rxjs';
 import { Student } from 'src/app/model/Student';
 import { StudentService } from 'src/app/service/student.service';
+import { AuthService } from './../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +17,16 @@ export class MainComponent implements OnInit {
   public editStudent!: Student;
   public deleteStudent!: Student;
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['']);
+  }
 
   public getStudents(): void {
     this.studentService.getStudents().subscribe(
