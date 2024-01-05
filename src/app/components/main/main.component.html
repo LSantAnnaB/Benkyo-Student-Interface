@@ -47,6 +47,9 @@
       class="d-none"
     />
     <button (click)="OnUploadExcel()" class="btn btn-primary">Importar</button>
+    <button class="btn btn-warning" (click)="redirectToLogin()">
+      Conrole de Usuários
+    </button>
     <button (click)="logout()" class="btn btn-danger">Logout</button>
   </div>
 </nav>
@@ -56,69 +59,67 @@
       <div class="card m-b-30 bg-info text-black">
         <div class="card-body row">
           <div class="col-6 card-title align-self-center mb-0">
-            <h5>{{ student?.name }}</h5>
-            <h4 class="m-0">{{ student?.shift }}</h4>
+            <h5>{{ student.name }}</h5>
+            <h4 class="m-0">{{ student.shift }}</h4>
           </div>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            Responsável:{{ student?.responsible }}
-          </li>
+          <li class="list-group-item">Responsável:{{ student.responsible }}</li>
           <li class="list-group-item">
             Telefone :
-            {{ student?.phone }}
+            {{ student.phone }}
           </li>
           <li class="list-group-item">
             Data da Matricula :
-            {{ student?.data }}
+            {{ student.data }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Duração do contrato :
-            {{ student?.contractTime }}
+            {{ student.contractTime }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Valor :
-            {{ student?.price }}
+            {{ student.price }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do Bolsão :
-            {{ student?.notaBolsao }}
+            {{ student.notaBolsao }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 1° simulado :
-            {{ student?.notaSimulado1 }}
+            {{ student.notaSimulado1 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 2° simulado :
-            {{ student?.notaSimulado2 }}
+            {{ student.notaSimulado2 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 3° simulado :
-            {{ student?.notaSimulado3 }}
+            {{ student.notaSimulado3 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 4° simulado :
-            {{ student?.notaSimulado4 }}
+            {{ student.notaSimulado4 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 5° simulado :
-            {{ student?.notaSimulado5 }}
+            {{ student.notaSimulado5 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 6° simulado :
-            {{ student?.notaSimulado6 }}
+            {{ student.notaSimulado6 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 7° simulado :
-            {{ student?.notaSimulado7 }}
+            {{ student.notaSimulado7 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 8° simulado :
-            {{ student?.notaSimulado8 }}
+            {{ student.notaSimulado8 }}
           </li>
           <li class="list-group-item">
             <i class="fa-light fa-id-badge"></i>Nota do 9° simulado :
-            {{ student?.notaSimulado9 }}
+            {{ student.notaSimulado9 }}
           </li>
         </ul>
         <div class="card-body">
@@ -396,7 +397,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="updateStudentModalLabel">
-            Edit Student {{ editStudent?.name }}
+            Edit Student {{ editStudent.name }}
           </h5>
           <button
             type="button"
@@ -413,7 +414,7 @@
               <label for="name">Nome</label>
               <input
                 type="text"
-                ngModel="{{ editStudent?.name }}"
+                ngModel="{{ editStudent.name }}"
                 name="name"
                 class="form-control"
                 id="name"
@@ -423,7 +424,7 @@
             </div>
             <input
               type="hidden"
-              ngModel="{{ editStudent?.id }}"
+              ngModel="{{ editStudent.id }}"
               name="id"
               class="form-control"
               id="id"
@@ -431,7 +432,7 @@
             />
             <input
               type="hidden"
-              ngModel="{{ editStudent?.studentCode }}"
+              ngModel="{{ editStudent.studentCode }}"
               name="userCode"
               class="form-control"
               id="userCode"
@@ -441,7 +442,7 @@
               <label for="shift">Turno</label>
               <input
                 type="text"
-                ngModel="{{ editStudent?.shift }}"
+                ngModel="{{ editStudent.shift }}"
                 name="shift"
                 class="form-control"
                 id="shift"
@@ -452,7 +453,7 @@
               <label for="responsible">Responsável</label>
               <input
                 type="text"
-                ngModel="{{ editStudent?.responsible }}"
+                ngModel="{{ editStudent.responsible }}"
                 name="responsible"
                 class="form-control"
                 id="responsible"
@@ -463,7 +464,7 @@
               <label for="phone">Phone</label>
               <input
                 type="text"
-                ngModel="{{ editStudent?.phone }}"
+                ngModel="{{ editStudent.phone }}"
                 name="phone"
                 class="form-control"
                 id="phone"
@@ -475,7 +476,7 @@
               <label for="data">Data da Matricula</label>
               <input
                 type="date"
-                ngModel="{{ editStudent?.data }}"
+                ngModel="{{ editStudent.data }}"
                 name="data"
                 class="form-control"
                 id="data"
@@ -486,7 +487,7 @@
               <label for="contractTime">Duração do Contrato</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.contractTime }}"
+                ngModel="{{ editStudent.contractTime }}"
                 name="contractTime"
                 class="form-control"
                 id="contractTime"
@@ -497,7 +498,7 @@
               <label for="price">Valor</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.price }}"
+                ngModel="{{ editStudent.price }}"
                 name="price"
                 class="form-control"
                 id="price"
@@ -508,7 +509,7 @@
               <label for="notaBolsao">Nota do Bolsão</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaBolsao }}"
+                ngModel="{{ editStudent.notaBolsao }}"
                 name="notaBolsao"
                 class="form-control"
                 id="notaBolsao"
@@ -519,7 +520,7 @@
               <label for="notaSimulado1">Nota do 1° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado1 }}"
+                ngModel="{{ editStudent.notaSimulado1 }}"
                 name="notaSimulado1"
                 class="form-control"
                 id="notaSimulado1"
@@ -530,7 +531,7 @@
               <label for="notaSimulado2">Nota do 2° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado2 }}"
+                ngModel="{{ editStudent.notaSimulado2 }}"
                 name="notaSimulado2"
                 class="form-control"
                 id="notaSimulado2"
@@ -541,7 +542,7 @@
               <label for="notaSimulado3">Nota do 3° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado3 }}"
+                ngModel="{{ editStudent.notaSimulado3 }}"
                 name="notaSimulado3"
                 class="form-control"
                 id="notaSimulado3"
@@ -552,7 +553,7 @@
               <label for="notaSimulado4">Nota do 4° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado4 }}"
+                ngModel="{{ editStudent.notaSimulado4 }}"
                 name="notaSimulado4"
                 class="form-control"
                 id="notaSimulado4"
@@ -563,7 +564,7 @@
               <label for="notaSimulado5">Nota do 5° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado5 }}"
+                ngModel="{{ editStudent.notaSimulado5 }}"
                 name="notaSimulado5"
                 class="form-control"
                 id="notaSimulado5"
@@ -574,7 +575,7 @@
               <label for="notaSimulado6">Nota do 6° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado6 }}"
+                ngModel="{{ editStudent.notaSimulado6 }}"
                 name="notaSimulado6"
                 class="form-control"
                 id="notaSimulado6"
@@ -585,7 +586,7 @@
               <label for="notaSimulado7">Nota do 7° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado7 }}"
+                ngModel="{{ editStudent.notaSimulado7 }}"
                 name="notaSimulado7"
                 class="form-control"
                 id="notaSimulado7"
@@ -596,7 +597,7 @@
               <label for="notaSimulado8">Nota do 8° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado8 }}"
+                ngModel="{{ editStudent.notaSimulado8 }}"
                 name="notaSimulado8"
                 class="form-control"
                 id="notaSimulado8"
@@ -607,7 +608,7 @@
               <label for="notaSimulado9">Nota do 9° simulado</label>
               <input
                 type="number"
-                ngModel="{{ editStudent?.notaSimulado9 }}"
+                ngModel="{{ editStudent.notaSimulado9 }}"
                 name="notaSimulado9"
                 class="form-control"
                 id="notaSimulado9"
@@ -662,7 +663,7 @@
         <div class="modal-body">
           <p>
             Você deseja excluir permanentemente
-            {{ deleteStudent?.name }}?
+            {{ deleteStudent.name }}
           </p>
           <div class="modal-footer">
             <button
@@ -687,7 +688,7 @@
 </div>
 
 <!-- Notification for no employees -->
-<div *ngIf="students?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+<div *ngIf="students.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">Sem Aluno</h4>
     <p>Nenhum aluno no sistema do Benkyô.</p>

@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
   public students: Student[] = [];
-  public editStudent!: Student;
-  public deleteStudent!: Student;
+  public editStudent: Student = new Student();
+  public deleteStudent: Student = new Student();
 
   constructor(
     private studentService: StudentService,
@@ -164,6 +164,9 @@ export class MainComponent implements OnInit {
     }
   }
 
+  redirectToLogin() {
+    this.router.navigate(['']);
+  }
   ngOnInit() {
     this.getStudents();
   }

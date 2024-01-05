@@ -21,7 +21,7 @@
                 class="btn btn-primary"
                 (click)="onOpenModal(null!, 'login')"
               >
-                login <span class="sr-only"></span>
+                Entrar <span class="sr-only"></span>
               </button>
             </li>
             <li class="nav-item active">
@@ -29,7 +29,12 @@
                 class="btn btn-primary"
                 (click)="onOpenModal(null!, 'add')"
               >
-                Registrar <span class="sr-only"></span>
+                Cadastrar <span class="sr-only"></span>
+              </button>
+            </li>
+            <li class="nav-item active">
+              <button class="btn btn-warning" (click)="redirectToMain()">
+                Secretaria <span class="sr-only"></span>
               </button>
             </li>
           </ul>
@@ -63,30 +68,6 @@
             </div>
             <div class="modal-body">
               <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
-                <div class="form-group">
-                  <label for="firstName">Nome</label>
-                  <input
-                    type="text"
-                    ngModel
-                    name="firstName"
-                    class="form-control"
-                    id="firstName"
-                    placeholder="Digite o nome"
-                    required
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="lastName">Sobrenome</label>
-                  <input
-                    type="text"
-                    ngModel
-                    name="lastName"
-                    class="form-control"
-                    id="lastName"
-                    placeholder="Digite o sobrenome"
-                    required
-                  />
-                </div>
                 <div class="form-group">
                   <label for="login">Login</label>
                   <input

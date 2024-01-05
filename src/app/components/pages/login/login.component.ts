@@ -67,4 +67,8 @@ export class LoginComponent {
         this.router.navigate(['/main']);
       });
   }
+
+  redirectToMain() {
+    this.router.navigate(['/main']);
+  }
 }
