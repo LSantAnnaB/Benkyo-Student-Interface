@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { catchError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { Student } from 'src/app/model/Student';
 import { StudentService } from 'src/app/service/student.service';
 import { AuthService } from './../../service/auth.service';
 import { Router } from '@angular/router';
+import { ErrorMessageService } from 'src/app/service/errorMessage.service';
 
 @Component({
   selector: 'app-main',
@@ -17,10 +18,13 @@ export class MainComponent implements OnInit {
   public editStudent: Student = new Student();
   public deleteStudent: Student = new Student();
 
+  errorMessage: string = '';
+
   constructor(
     private studentService: StudentService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private errorMessageService: ErrorMessageService
   ) {}
 
   logout() {
@@ -46,6 +50,7 @@ export class MainComponent implements OnInit {
       if (
         student.name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
         student.shift.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        student.course.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
         student.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
         student.responsible.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
         student.data.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
@@ -102,15 +107,56 @@ export class MainComponent implements OnInit {
       });
   }
   public onUpdateStudent(student: Student): void {
-    this.studentService.updateStudent(student).subscribe(
-      (respose: Student) => {
+    this.studentService
+      .updateStudent(student)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          alert(error.message);
+          throw error;
+        })
+      )
+      .subscribe((response: Student) => {
         this.getStudents();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+      });
   }
+
+  public onDownloadExcel(): void {
+    this.studentService
+      .downloadExcelFile()
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Erro ao baixar o arquivo Excel:', error);
+          throw error;
+        })
+      )
+      .subscribe((blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'students.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      });
+  }
+
+  public onUploadExcel(): void {
+    if (this.file) {
+      this.studentService.uploadExcelFile(this.file).subscribe(
+        (response: Blob) => {
+          this.getStudents();
+        },
+        (error: HttpErrorResponse) => {
+          // Exibe o erro na tela
+          alert(
+            `O Arquivo precisa ter todas as colunas necessárias da tabela.\n\nO Arquivo precisa ter o formato xlsx`
+          );
+        }
+      );
+    }
+  }
+
   public onDeleteStudent(studetId: number): void {
     this.studentService
       .deleteStudent(studetId)
@@ -125,23 +171,6 @@ export class MainComponent implements OnInit {
       });
   }
 
-  public OnDownloadExcel(): void {
-    this.studentService.downloadExcelFile().subscribe(
-      (blob: Blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'students.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Erro ao baixar o arquivo Excel:', error);
-      }
-    );
-  }
   public file: File | null = null;
 
   public onFileChange(event: Event): void {
@@ -151,23 +180,22 @@ export class MainComponent implements OnInit {
     }
   }
 
-  public OnUploadExcel(): void {
-    if (this.file) {
-      this.studentService.uploadExcelFile(this.file).subscribe(
-        (blob: Blob) => {
-          this.getStudents();
-        },
-        (error) => {
-          console.error('Erro ao fazer upload do arquivo Excel:', error);
-        }
-      );
-    }
+  clearErrorMessage() {
+    this.errorMessage = '';
   }
 
   redirectToLogin() {
     this.router.navigate(['']);
   }
+
+  public errorOccurred = false;
+  public erroMessage = '';
+  @ViewChild('errorContainer') errorContainer!: ElementRef;
+
   ngOnInit() {
     this.getStudents();
+    this.errorMessageService.errorMessage$.subscribe((message) => {
+      this.errorMessage = message;
+    });
   }
 }

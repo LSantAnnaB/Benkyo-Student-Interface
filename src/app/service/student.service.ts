@@ -1,8 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../model/Student';
 import { environment } from 'src/environments/environment';
+import { ErrorMessageService } from './errorMessage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +15,10 @@ import { environment } from 'src/environments/environment';
 export class StudentService {
   private apiServeUrl: string = environment.apiServiceUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorMessageService: ErrorMessageService
+  ) {}
 
   public getStudents(): Observable<Student[]> {
     return this.http.get<Student[]>(`${this.apiServeUrl}/student/all`);
@@ -43,5 +51,28 @@ export class StudentService {
     return this.http.post(`${this.apiServeUrl}/student/upload`, formData, {
       responseType: 'blob',
     });
+  }
+
+  private handleError(error: HttpErrorResponse, operation: string) {
+    console.error(`Erro na operação ${operation}:`, error);
+
+    let errorMessage = this.getDefaultErrorMessage(operation);
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Erro: ${error.error.message}`;
+    }
+
+    this.errorMessageService.showErrorMessage(errorMessage);
+  }
+
+  private getDefaultErrorMessage(operation: string): string {
+    switch (operation) {
+      case 'addUser':
+        return 'Nível de permissão não autorizado para cadastar novo usuário.';
+      case 'loginUser':
+        return 'Ocorreu um erro ao fazer login. Usuario ou Senha inválidos';
+      default:
+        return 'Ocorreu um erro desconhecido.';
+    }
   }
 }

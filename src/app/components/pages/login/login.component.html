@@ -1,3 +1,14 @@
+<div *ngIf="errorMessage" class="alert alert-danger">
+  <span>{{ errorMessage }}</span>
+  <button
+    type="button"
+    class="close"
+    aria-label="Fechar"
+    (click)="clearErrorMessage()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <body class="bg-dark corpo">
   <div class="container">
     <div class="navbar navbar-expand-lg navbar-dark">

@@ -2,6 +2,7 @@ export class Student {
   id: number = 0;
   name: string = '';
   shift: string = '';
+  course: string = '';
   phone: string = '';
   data: string = '';
   contractTime: string = '';
