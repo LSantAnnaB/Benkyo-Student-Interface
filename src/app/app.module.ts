@@ -11,6 +11,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './service/authInterceptor';
 import { AuthGuard } from './security/auth.guard';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, MainComponent, LoginComponent],
@@ -21,6 +22,7 @@ import { AuthGuard } from './security/auth.guard';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [
     AuthGuard,

@@ -12,8 +12,39 @@ body {
   gap: 20px;
 }
 
+/* Adicione isso ao seu arquivo CSS */
+.alert {
+  font-size: 3em;
+  line-height: 1.2em;
+  color: red;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 3.3em;
+  width: 20em;
+  z-index: 1000;
+  /* Certifique-se de que este valor seja maior que a z-index de outros elementos */
+  text-align: center;
+  /* Centraliza o texto no alerta */
+}
+
+.alert span {
+  margin-right: 10px;
+}
+
+.close {
+  cursor: pointer;
+}
 
 
+.alert span {
+  margin-right: 10px;
+}
+
+.close {
+  cursor: pointer;
+}
 
 .navbar button {
   margin-right: 20px;

@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { Student } from 'src/app/model/Student';
+import { catchError, throwError } from 'rxjs';
 import { Users } from 'src/app/model/Users';
+import { ErrorMessageService } from 'src/app/service/errorMessage.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -12,12 +12,14 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  public students: Student[] = [];
-  public editStudent!: Student;
-  public deleteStudent!: Student;
+export class LoginComponent implements OnInit {
+  errorMessage: string = '';
 
-  constructor(private user: UserService, private router: Router) {}
+  constructor(
+    private user: UserService,
+    private router: Router,
+    private errorMessageService: ErrorMessageService
+  ) {}
 
   public onOpenModal(users: Users, mode: string): void {
     const container = document.getElementById('main-container');
@@ -59,7 +61,7 @@ export class LoginComponent {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           alert(error.message);
-          throw error;
+          return throwError(() => error);
         })
       )
       .subscribe((response: Users) => {
@@ -70,5 +72,13 @@ export class LoginComponent {
 
   redirectToMain() {
     this.router.navigate(['/main']);
+  }
+  clearErrorMessage() {
+    this.errorMessage = '';
+  }
+  ngOnInit() {
+    this.errorMessageService.errorMessage$.subscribe((message) => {
+      this.errorMessage = message;
+    });
   }
 }
