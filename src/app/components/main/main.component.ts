@@ -45,25 +45,23 @@ export class MainComponent implements OnInit {
 
   public searchStudents(key: string): void {
     console.log(key);
-    const results: Student[] = [];
-    for (const student of this.students) {
-      if (
-        student.name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.shift.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.course.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.responsible.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.data.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.contractTime.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ) {
-        results.push(student);
-      }
-    }
-    this.students = results;
-    if (results.length === 0 || !key) {
+  
+    if (!key) {
       this.getStudents();
+      return;
     }
+  
+    this.studentService.searchStudents(key).subscribe(
+      (results: Student[]) => {
+        this.students = results;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+        // Lide com o erro conforme necessário
+      }
+    );
   }
+  
 
   public onOpenModal(student: Student, mode: string): void {
     const container = document.getElementById('main-container');
