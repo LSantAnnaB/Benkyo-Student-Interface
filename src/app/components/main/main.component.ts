@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { Student } from 'src/app/model/Student';
 import { StudentService } from 'src/app/service/student.service';
 import { AuthService } from './../../service/auth.service';
@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   public students: Student[] = [];
   public editStudent: Student = new Student();
   public deleteStudent: Student = new Student();
-
+  @ViewChild('editForm') editForm!: NgForm;
   errorMessage: string = '';
 
   constructor(
@@ -45,24 +45,20 @@ export class MainComponent implements OnInit {
 
   public searchStudents(key: string): void {
     console.log(key);
-    const results: Student[] = [];
-    for (const student of this.students) {
-      if (
-        student.name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.shift.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.course.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.responsible.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.data.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
-        student.contractTime.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ) {
-        results.push(student);
-      }
-    }
-    this.students = results;
-    if (results.length === 0 || !key) {
+
+    if (!key) {
       this.getStudents();
+      return;
     }
+
+    this.studentService.searchStudents(key).subscribe(
+      (results: Student[]) => {
+        this.students = results;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+    );
   }
 
   public onOpenModal(student: Student, mode: string): void {
@@ -117,6 +113,7 @@ export class MainComponent implements OnInit {
       )
       .subscribe((response: Student) => {
         this.getStudents();
+        this.editForm.reset();
       });
   }
 
