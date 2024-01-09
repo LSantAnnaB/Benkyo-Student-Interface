@@ -7,11 +7,9 @@ body {
   cursor: pointer;
 }
 
-/* error-message.component.css */
 .error-message {
   color: white;
   background-color: #ff0000;
-  /* Cor de fundo vermelha - você pode ajustar conforme necessário */
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;

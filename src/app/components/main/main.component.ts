@@ -146,9 +146,8 @@ export class MainComponent implements OnInit {
           this.getStudents();
         },
         (error: HttpErrorResponse) => {
-          // Exibe o erro na tela
           alert(
-            `O Arquivo precisa ter todas as colunas necessárias da tabela.\n\nO Arquivo precisa ter o formato xlsx`
+            `O Arquivo precisa ter todas as colunas necessárias da tabela.\n\nO Arquivo precisa ter o formato xlsx\n\nNão é possível inserir um arquivo com mesmo nome `
           );
         }
       );

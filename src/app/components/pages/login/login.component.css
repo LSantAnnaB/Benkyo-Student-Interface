@@ -12,9 +12,8 @@ body {
   gap: 20px;
 }
 
-/* Adicione isso ao seu arquivo CSS */
 .alert {
-  font-size: 3em;
+  font-size: 2.7em;
   line-height: 1.2em;
   color: red;
   position: fixed;
@@ -24,9 +23,7 @@ body {
   height: 3.3em;
   width: 20em;
   z-index: 1000;
-  /* Certifique-se de que este valor seja maior que a z-index de outros elementos */
   text-align: center;
-  /* Centraliza o texto no alerta */
 }
 
 .alert span {
