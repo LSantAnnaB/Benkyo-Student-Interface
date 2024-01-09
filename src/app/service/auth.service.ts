@@ -29,6 +29,6 @@ export class AuthService {
 
   logout() {
     this.tokenService.removeToken();
-    this.userSubject.next(null); // Notifica que o usuário fez logout
+    this.userSubject.next(null);
   }
 }
