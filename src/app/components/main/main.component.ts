@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { Student } from 'src/app/model/Student';
 import { StudentService } from 'src/app/service/student.service';
 import { AuthService } from './../../service/auth.service';
@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   public students: Student[] = [];
   public editStudent: Student = new Student();
   public deleteStudent: Student = new Student();
-
+  @ViewChild('editForm') editForm!: NgForm;
   errorMessage: string = '';
 
   constructor(
@@ -43,21 +43,20 @@ export class MainComponent implements OnInit {
     );
   }
 
-  public searchStudents(key: string): void {
+ public searchStudents(key: string): void {
     console.log(key);
-  
+
     if (!key) {
       this.getStudents();
       return;
     }
-  
+
     this.studentService.searchStudents(key).subscribe(
       (results: Student[]) => {
         this.students = results;
       },
       (error: HttpErrorResponse) => {
         console.error(error);
-        // Lide com o erro conforme necessário
       }
     );
   }
@@ -115,6 +114,7 @@ export class MainComponent implements OnInit {
       )
       .subscribe((response: Student) => {
         this.getStudents();
+        this.editForm.reset();
       });
   }
 

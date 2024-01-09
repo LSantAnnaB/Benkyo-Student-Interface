@@ -53,10 +53,11 @@ export class StudentService {
     });
   }
 
-  public searchStudents(key: string): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.apiServeUrl}/student/search?key=${key}`);
+public searchStudents(key: string): Observable<Student[]> {
+    return this.http.get<Student[]>(
+      `${this.apiServeUrl}/student/search?key=${key}`
+    );
   }
-  
 
   private handleError(error: HttpErrorResponse, operation: string) {
     console.error(`Erro na operação ${operation}:`, error);
