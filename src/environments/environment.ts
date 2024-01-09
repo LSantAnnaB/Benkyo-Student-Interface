@@ -1,4 +1,4 @@
 export const environment = {
-  productio: false,
+  production: false,
   apiServiceUrl: 'https://benkyo-secretaria.onrender.com',
 };

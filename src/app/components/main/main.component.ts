@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
     );
   }
 
-  public searchStudents(key: string): void {
+ public searchStudents(key: string): void {
     console.log(key);
 
     if (!key) {
@@ -60,6 +60,7 @@ export class MainComponent implements OnInit {
       }
     );
   }
+  
 
   public onOpenModal(student: Student, mode: string): void {
     const container = document.getElementById('main-container');

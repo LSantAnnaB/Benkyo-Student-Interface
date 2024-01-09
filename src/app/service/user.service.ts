@@ -1,10 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+
 import { Users } from '../model/Users';
 import { AuthService } from './auth.service';
 import { ErrorMessageService } from './errorMessage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
